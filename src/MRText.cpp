@@ -307,12 +307,6 @@ void typeAnythingToContinue(TString message)
 	return;
 }
 
-TString addExeDir(TString inpString)
-{
-	TString returnString = "/media/mjbexternal/exe/" + inpString;
-	return returnString;
-}
-
 TString fileNameFromFullPath(TString fullPath)  //return fullPath if not found
 {
 	Ssiz_t found;

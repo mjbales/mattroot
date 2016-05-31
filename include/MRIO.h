@@ -1,6 +1,12 @@
 #ifndef MATTIO_H_INCLUDED
 #define MATTIO_H_INCLUDED
 
+//////////////////////////////////////////////////
+/// MRIO.h - by Matthew Bales
+/// Functions related to file I/O
+///
+///////////////////////////////////////////////////
+
 #include <iostream>
 
 #include "TH1.h"

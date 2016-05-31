@@ -14,7 +14,7 @@
 #include "TVector3.h"
 #include "TString.h"
 
-class ROOTField{
+class MRField{
 private:
     int numBins[3];
     TVector3 startCorner;
@@ -47,9 +47,9 @@ private:
 
 
 public:
-    ROOTField();
-    ROOTField(TString filePath, TString histName, double scalingValue,int inpSpaceDim,int inpFieldDim);
-    ~ROOTField();
+    MRField();
+    MRField(TString filePath, TString histName, double scalingValue,int inpSpaceDim,int inpFieldDim);
+    ~MRField();
     void reset();
     void linearInterp3D(TVector3 pos,TVector3& vecOut);
     void cubicInterp3D(TVector3 pos,TVector3& vecOut);

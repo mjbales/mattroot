@@ -1,6 +1,12 @@
 #ifndef MATTMISC_H_INCLUDED
 #define MATTMISC_H_INCLUDED
 
+//////////////////////////////////////////////////
+/// MRMisc.h - by Matthew Bales
+/// Functions which didn't fit in other ones...
+///
+///////////////////////////////////////////////////
+
 #include <vector>
 
 #include "TH1.h"
@@ -21,7 +27,6 @@ enum BASIC_MATH_OPERATION
 	ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION
 };
 
-TH3I* convertTwoTH1IToTH3I(TH1I* h1, TH1I* h2);
 void makeHistNiceForLog(TH1* inpHist, int valToSet);
 TH1D* convertTH1IToTH1D(TH1I* inpHist);
 double getHistExtentHigh(TH1* inpHist);

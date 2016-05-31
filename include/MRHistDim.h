@@ -1,12 +1,11 @@
-/*
- * MRHistDim.h
- *
- *  Created on: Oct 7, 2014
- *      Author: mjbales
- */
-
 #ifndef MATTROOT_INCLUDE_MRHISTDIM_H_
 #define MATTROOT_INCLUDE_MRHISTDIM_H_
+
+//////////////////////////////////////////////////
+//MRHistDim.h - by Matthew Bales
+//Simple histogram dimensions
+//
+///////////////////////////////////////////////////
 
 struct HistDim
 {
@@ -14,7 +13,7 @@ struct HistDim
 	double binLowEdge;
 	double binHighEdge;
 
-	inline double getBinWidth(){return (binHighEdge-binLowEdge)/(double) numBins;}
+	inline double getBinWidth() const {return (binHighEdge-binLowEdge)/(double) numBins;}
 };
 
 #endif /* MATTROOT_INCLUDE_MRHISTDIM_H_ */

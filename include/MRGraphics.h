@@ -1,6 +1,12 @@
 #ifndef INCLUDE_MRGRAPHICS_H_
 #define INCLUDE_MRGRAPHICS_H_
 
+//////////////////////////////////////////////////
+//MRGraphics.h - by Matthew Bales
+//misc graphics related functions
+//
+///////////////////////////////////////////////////
+
 #include <vector>
 
 #include "TGraphErrors.h"

@@ -23,23 +23,23 @@
 
 using namespace std;
 
-ROOTField::ROOTField()
+MRField::MRField()
 {
 	reset();
 }
 
-ROOTField::ROOTField(TString filePath, TString histName, double scalingValue, int inpSpaceDim, int inpFieldDim)
+MRField::MRField(TString filePath, TString histName, double scalingValue, int inpSpaceDim, int inpFieldDim)
 {
 	reset();
 	loadFieldFromFile(filePath, histName, scalingValue, inpSpaceDim, inpFieldDim);
 }
 
-ROOTField::~ROOTField()
+MRField::~MRField()
 {
 	reset();
 }
 
-void ROOTField::reset()
+void MRField::reset()
 {
 	for (int i = 0; i < 3; i++)
 	{
@@ -58,7 +58,7 @@ void ROOTField::reset()
 
 }
 
-void ROOTField::setSize(int inpRows, int inpColumns, int inpLayers)
+void MRField::setSize(int inpRows, int inpColumns, int inpLayers)
 {
 
 	if(fieldLoaded && numBins[0] > 0 && numBins[1] > 0 && numBins[2] > 0)
@@ -104,7 +104,7 @@ void ROOTField::setSize(int inpRows, int inpColumns, int inpLayers)
 	}
 }
 
-bool ROOTField::isPositionInsideField(TVector3 pos)
+bool MRField::isPositionInsideField(TVector3 pos)
 {
 	TVector3 posInField = getPosInField(pos);
 
@@ -141,7 +141,7 @@ bool ROOTField::isPositionInsideField(TVector3 pos)
 	return false;
 }
 
-int ROOTField::loadFieldFromFile(TString filePath, TString histName, double scalingValue, int inpSpaceDim, int inpFieldDim)
+int MRField::loadFieldFromFile(TString filePath, TString histName, double scalingValue, int inpSpaceDim, int inpFieldDim)
 {
 	if(fieldLoaded)
 	{
@@ -185,7 +185,7 @@ int ROOTField::loadFieldFromFile(TString filePath, TString histName, double scal
 //N field definition lines in the iteration order Z Y X
 //Assumes field is stored as cm for text file
 //Stored in class as meters
-int ROOTField::loadFieldTXTFile(TString fieldPath, double scalingValue)
+int MRField::loadFieldTXTFile(TString fieldPath, double scalingValue)
 {
 
 	ifstream fieldFile;
@@ -357,7 +357,7 @@ int ROOTField::loadFieldTXTFile(TString fieldPath, double scalingValue)
 }
 
 //Stored in meters
-int ROOTField::loadFieldROOTFile(TString filePath, TString histName, double scalingValue)
+int MRField::loadFieldROOTFile(TString filePath, TString histName, double scalingValue)
 {
 	TFile inpFile(filePath, "READ");
 	TH1* histArray[3] = { nullptr, nullptr, nullptr };
@@ -432,7 +432,7 @@ int ROOTField::loadFieldROOTFile(TString filePath, TString histName, double scal
 	return 0;
 }
 
-TVector3 ROOTField::getPosInField(TVector3 inp)
+TVector3 MRField::getPosInField(TVector3 inp)
 {
 	TVector3 out = inp;
 
@@ -453,7 +453,7 @@ TVector3 ROOTField::getPosInField(TVector3 inp)
 }
 
 //Adds interpolated field to vecOut
-void ROOTField::linearInterp3D(TVector3 posInField, TVector3& vecOut)
+void MRField::linearInterp3D(TVector3 posInField, TVector3& vecOut)
 {
 	if(!fieldLoaded)
 	{
@@ -602,12 +602,12 @@ void ROOTField::linearInterp3D(TVector3 posInField, TVector3& vecOut)
 	return;
 }
 
-TVector3 ROOTField::cubicInterpolate(TVector3 p[4], double xIn)
+TVector3 MRField::cubicInterpolate(TVector3 p[4], double xIn)
 {
 	return p[1] + 0.5 * xIn * (p[2] - p[0] + xIn * (2.0 * p[0] - 5.0 * p[1] + 4.0 * p[2] - p[3] + xIn * (3.0 * (p[1] - p[2]) + p[3] - p[0])));
 }
 
-TVector3 ROOTField::bicubicInterpolate(TVector3 p[4][4], double xIn, double yIn)
+TVector3 MRField::bicubicInterpolate(TVector3 p[4][4], double xIn, double yIn)
 {
 	TVector3 arr[4];
 	arr[0] = cubicInterpolate(p[0], yIn);
@@ -617,7 +617,7 @@ TVector3 ROOTField::bicubicInterpolate(TVector3 p[4][4], double xIn, double yIn)
 	return cubicInterpolate(arr, xIn);
 }
 
-TVector3 ROOTField::tricubicInterpolate(TVector3 p[4][4][4], double xIn, double yIn, double zIn)
+TVector3 MRField::tricubicInterpolate(TVector3 p[4][4][4], double xIn, double yIn, double zIn)
 {
 	TVector3 arr[4];
 	arr[0] = bicubicInterpolate(p[0], yIn, zIn);
@@ -627,7 +627,7 @@ TVector3 ROOTField::tricubicInterpolate(TVector3 p[4][4][4], double xIn, double 
 	return cubicInterpolate(arr, xIn);
 }
 
-void ROOTField::cubicInterp3D(TVector3 posInField, TVector3& vecOut)
+void MRField::cubicInterp3D(TVector3 posInField, TVector3& vecOut)
 {
 	if(!fieldLoaded)
 	{
@@ -727,7 +727,7 @@ void ROOTField::cubicInterp3D(TVector3 posInField, TVector3& vecOut)
 	return;
 }
 
-int ROOTField::saveFieldToFile(TString filePath, TString histName)
+int MRField::saveFieldToFile(TString filePath, TString histName)
 {
 	if(!fieldLoaded)
 	{
@@ -785,7 +785,7 @@ int ROOTField::saveFieldToFile(TString filePath, TString histName)
 	return 0;
 }
 
-bool ROOTField::fieldFileExists(TString strFileName)
+bool MRField::fieldFileExists(TString strFileName)
 {
 	struct stat stFileInfo;
 	bool blnReturn;
